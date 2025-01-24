@@ -1,13 +1,26 @@
-## Week 1 Homework - SQL
+# Week 1 Homework
+## Question 1. Understanding docker first run 
+```bash
+$ docker run -it --entrypoint=bash python:3.12.8
+pip --version
 
-### Question 3:	
+pip 24.3.1
 ```
+## Question 2. Understanding Docker networking and docker-compose
+
+postgres service name: db  
+postgres internal port: 5432
+
+***db:5432***
+
+## Question 3. Trip Segmentation Count
+```SQL
 SELECT
 	CASE
 		WHEN trip_distance <= 1 THEN 'Up to 1 mile'
-		WHEN trip_distance > 1 AND trip_distance <=3 THEN 'Between 1 and 3 miles'
-		WHEN trip_distance > 3 AND trip_distance <=7 THEN 'Between 3 and 7 miles'
-		WHEN trip_distance > 7 AND trip_distance <=10 THEN 'Between 7 and 10 miles'
+		WHEN trip_distance > 1 AND trip_distance <= 3 THEN 'Between 1 and 3 miles'
+		WHEN trip_distance > 3 AND trip_distance <= 7 THEN 'Between 3 and 7 miles'
+		WHEN trip_distance > 7 AND trip_distance <= 10 THEN 'Between 7 and 10 miles'
 		ELSE 'Over 10 miles'
 	END AS distance_ranges,
 	COUNT(1) as trip_count
@@ -31,8 +44,8 @@ GROUP BY
 
 
 
-### Question 4:
-```
+## Question 4. Longest trip for each day
+```SQL
 SELECT
 	DATE(lpep_pickup_datetime) AS pickup_date,
 	MAX(trip_distance) AS max_trip_distance
@@ -56,8 +69,8 @@ ORDER BY max_trip_distance DESC;
 
 
 
-### Question 5:
-```
+## Question 5. Three biggest pickup zones
+```SQL
 SELECT
 	zpu."Zone" AS pickup_location,
 	ROUND(CAST(SUM(total_amount) AS numeric),2) AS totals	
@@ -84,8 +97,8 @@ ORDER BY totals DESC;
 
 
 
-### Question 6:
-```
+## Question 6. Largest tip
+```SQL
 SELECT
 	MAX(Tip_amount) AS max_tip,
 	zdo."Zone" AS dropoff_zone	
@@ -107,3 +120,6 @@ LIMIT 1;
 | dropoff_zone | max_tip |
 |--------------|---------|
 | JFK Airport  | 87.3    |
+
+## Question 7. Terraform Workflow
+terraform init, terraform apply -auto-approve, terraform destroy
