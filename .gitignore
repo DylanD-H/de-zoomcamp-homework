@@ -1,3 +1,5 @@
-*.csv
+*.csv*
 *.txt
 *.json
+*_SUCCESS*
+*.parquet*
